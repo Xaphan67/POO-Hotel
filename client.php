@@ -49,7 +49,7 @@ class Client
         $totalReservations = count($this->_reservations);
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
 
-        $result = "<h1>Réservations de " . $this . "</h1>";
+        $result = "<h1>Réservations de $this</h1>";
 
         if ($totalReservations >= 1)
         {

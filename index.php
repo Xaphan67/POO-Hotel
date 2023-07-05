@@ -40,3 +40,6 @@ echo $hotel2->afficherReservations();
 
 // Afficher les réservations d'un client
 echo $client2->afficherReservations();
+
+// Afficher le statut des chambres d'un hôtel
+echo $hotel1->afficherStatut();

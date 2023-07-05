@@ -67,6 +67,7 @@ class Hotel
     public function enregistrerReservation(Reservation $reservation)
     {
         $this->_reservations[] = $reservation;
+        $reservation->getChambre()->setDisponible(false);
     }
 
     public function __toString()
@@ -77,7 +78,7 @@ class Hotel
     // Affiche les informations sur cet hôtel
     public function afficherInformations()
     {
-        $result = "<h1>" . $this->_nom . "</h1>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
+        $result = "<h1>$this</h1>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
         "Nombre de Chambres : " . count($this->_chambres) . "</br>";
 
         return $result;
@@ -89,7 +90,7 @@ class Hotel
         $totalReservations = count($this->_reservations);
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
 
-        $result = "<h1>Réservations de l'hôtel " . $this->_nom . "</h1>";
+        $result = "<h1>Réservations de l'hôtel $this</h1>";
 
         if ($totalReservations >= 1)
         {
@@ -105,5 +106,60 @@ class Hotel
         }
         
         return $result;
+    }
+
+    // Affiche le statut des chambres de l'hôtel
+    public function afficherStatut()
+    {
+        usort($this->_chambres, array($this, "TriParChambre"));
+
+        $result = "<h1>Statut des chambres de $this</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th >Chambre</th>
+                    <th >Prix</th>
+                    <th >Wifi</th>
+                    <th >Etat</th>
+                </tr>
+            </thead>
+        <tbody>";
+
+        foreach ($this->_chambres as $chambre)
+        {
+            $wifi = $chambre->getWifi() ? "Oui" : "Non";
+            $disponible = $chambre->getDisponible() ? "Disponible" : "Reservée";
+
+            $result .= "
+            <tr>
+                <td>Chambre " . $chambre->getNumero() . "</td>
+                <td>" . $chambre->getPrix() . "€</td>
+                <td>$wifi</td>
+                <td>$disponible</td>
+            </tr>";
+        }
+
+        $result .= "
+            </tbody>
+        </table>";
+
+        return $result;
+    }
+
+    // Trie les réservations par numéro de chambre
+    private function TriParChambre($a, $b)
+    {
+        if ($a->getNumero() == $b->getNumero()) // Les numéros de chambres sont identiques
+        {
+            return 0;
+        }
+        else if ($a->getNumero() < $b->getNumero())  // Le numéro de chambre a est inférieur à b
+        {
+            return -1;
+        }
+        else // Le numéro de chambre est supérieur
+        {
+            return 1;
+        }
     }
 }

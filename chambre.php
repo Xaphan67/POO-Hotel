@@ -6,6 +6,7 @@ class Chambre
     private float $_prix;
     private bool $_wifi;
     private Hotel $_hotel;
+    private bool $_disponible;
 
     public function __construct(Hotel $hotel, int $numero, float $prix, bool $wifi)
     {
@@ -13,6 +14,7 @@ class Chambre
         $this->_numero = $numero;
         $this->_prix = $prix;
         $this->_wifi = $wifi;
+        $this->_disponible = true;
 
         $hotel->ajouterChambre($this);
     }
@@ -37,6 +39,11 @@ class Chambre
         return $this->_wifi;
     }
 
+    public function getDisponible()
+    {
+        return $this->_disponible;
+    }
+
     public function setHotel($hotel)
     {
         $this->_hotel = $hotel;
@@ -55,5 +62,10 @@ class Chambre
     public function setWifi($wifi)
     {
         $this->_wifi = $wifi;
+    }
+
+    public function setDisponible($disponible)
+    {
+        $this->_disponible = $disponible;
     }
 }
