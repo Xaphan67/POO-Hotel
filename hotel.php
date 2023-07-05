@@ -6,6 +6,7 @@ class Hotel
     public string $_adresse;
     public string $_cp;
     public string $_ville;
+    public $_chambres = array();
 
     public function __construct(string $nom, string $adresse, string $cp, string $ville)
     {
@@ -53,5 +54,20 @@ class Hotel
     public function setVille($ville)
     {
         $this->_ville = $ville;
+    }
+
+    // Ajoute une chambre à cet hôtel
+    public function ajouterChambre(Chambre $chambre)
+    {
+        $this->_chambres[] = $chambre;
+    }
+
+    // Affiche les informations sur cet hôtel
+    public function afficherInformations()
+    {
+        $result = "<h1>" . $this->_nom . "</h1>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
+        "Nombre de Chambres : " . count($this->_chambres) . "</br>";
+
+        return $result;
     }
 }
