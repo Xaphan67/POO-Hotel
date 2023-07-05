@@ -78,8 +78,13 @@ class Hotel
     // Affiche les informations sur cet hôtel
     public function afficherInformations()
     {
+        $nbChambres = count($this->_chambres);
+        $nbChambresReservees = count($this->_reservations);
+
         $result = "<h1>$this</h1>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
-        "Nombre de Chambres : " . count($this->_chambres) . "</br>";
+        "Nombre de Chambres : $nbChambres</br>" .
+        "Nombre de Chambres réservées : $nbChambresReservees</br>" .
+        "Nombre de Chambres disponibles : " . ($nbChambres - $nbChambresReservees);
 
         return $result;
     }
