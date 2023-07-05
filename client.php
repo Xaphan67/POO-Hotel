@@ -61,7 +61,7 @@ class Client
                 $chambre = $reservation->getChambre();
                 $wifi = $chambre->getWifi() ? "Oui" : "Non";
                 $totalPrix += $chambre->getPrix();
-                $result .= "<b>Hôtel : " . $reservation->getChambre()->getHotel() . "</b> - Chambre " . $chambre->getNumero() . " ( " . $chambre->getPrix() . "€ - Wifi : " . $wifi . " - du " . $formatter->format($reservation->getDateDebut()) . " au " . $formatter->format($reservation->getDateFin()) . "</br>";
+                $result .= "<b>Hôtel : " . $reservation->getChambre()->getHotel() . "</b> - Chambre " . $chambre->getNumero() . " (" . $chambre->getPrix() . "€ - Wifi : " . $wifi . ") - du " . $formatter->format($reservation->getDateDebut()) . " au " . $formatter->format($reservation->getDateFin()) . "</br>";
             }
 
             $result .= "Total : $totalPrix €</p>";
