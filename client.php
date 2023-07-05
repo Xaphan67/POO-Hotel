@@ -30,4 +30,9 @@ class Client
     {
         $this->_prenom = $prenom;
     }
+
+    public function __toString()
+    {
+        return $this->_prenom . " " . $this->_nom;
+    }
 }

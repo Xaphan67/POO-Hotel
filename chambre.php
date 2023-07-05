@@ -17,6 +17,11 @@ class Chambre
         $hotel->ajouterChambre($this);
     }
 
+    public function getHotel()
+    {
+        return $this->_hotel;
+    }
+
     public function getNumero()
     {
         return $this->_numero;
@@ -30,6 +35,11 @@ class Chambre
     public function getWifi()
     {
         return $this->_wifi;
+    }
+
+    public function setHotel($hotel)
+    {
+        $this->_hotel = $hotel;
     }
 
     public function setNumero($numero)

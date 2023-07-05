@@ -17,6 +17,7 @@ $client2 = new Client("MURMANN", "Mickael");
 $chambreStrasbourg1 = new Chambre($hotel1, 1, 120, false);
 $chambreStrasbourg2 = new Chambre($hotel1, 2, 120, false);
 $chambreStrasbourg3 = new Chambre($hotel1, 3, 120, false);
+$chambreStrasbourg4 = new Chambre($hotel1, 4, 120, false);
 $chambreStrasbourg16 = new Chambre($hotel1, 16, 300, true);
 $chambreStrasbourg17 = new Chambre($hotel1, 17, 300, true);
 $chambreStrasbourg18 = new Chambre($hotel1, 18, 300, true);
@@ -26,9 +27,13 @@ $chambreParis2 = new Chambre($hotel2, 2, 120, false);
 $chambreParis3 = new Chambre($hotel2, 3, 300, true);
 
 // Réservations
-$reservation1 = new Reservation("2021-01-01", "2021-01-01");
-$reservation2 = new Reservation("2021-03-11", "2021-03-11");
-$reservation3 = new Reservation("2021-04-01", "2021-04-01");
+$reservation1 = new Reservation($client1, $chambreStrasbourg17, "2021-01-01", "2021-01-01");
+$reservation2 = new Reservation($client2, $chambreStrasbourg3, "2021-03-11", "2021-03-15");
+$reservation3 = new Reservation($client2, $chambreStrasbourg4, "2021-04-01", "2021-04-17");
 
 // Afficher les informations d'un hôtel
 echo $hotel1->afficherInformations();
+
+// Afficher les réservations d'un hôtel
+echo $hotel1->afficherReservations();
+echo $hotel2->afficherReservations();

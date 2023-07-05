@@ -7,6 +7,7 @@ class Hotel
     public string $_cp;
     public string $_ville;
     public $_chambres = array();
+    public $_reservations = array();
 
     public function __construct(string $nom, string $adresse, string $cp, string $ville)
     {
@@ -62,12 +63,41 @@ class Hotel
         $this->_chambres[] = $chambre;
     }
 
+    // Ajoute une réservation pour une chambre de cet hôtel
+    public function enregistrerReservation(Reservation $reservation)
+    {
+        $this->_reservations[] = $reservation;
+    }
+
     // Affiche les informations sur cet hôtel
     public function afficherInformations()
     {
         $result = "<h1>" . $this->_nom . "</h1>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
         "Nombre de Chambres : " . count($this->_chambres) . "</br>";
 
+        return $result;
+    }
+
+    // Affiche les réservations de cet hôtel
+    public function afficherReservations()
+    {
+        $totalReservations = count($this->_reservations);
+        $result = "<h1>Réservations de l'hôtel " . $this->_nom . "</h1>";
+        $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+
+        if ($totalReservations >= 1)
+        {
+            $result .= $totalReservations . " RESERVATIONS</br>";
+            foreach ($this->_reservations as $reservation)
+            {
+                $result .= $reservation->getClient() . " - Chambre " . $reservation->getChambre()->getNumero() . " - du " . $formatter->format($reservation->getDateDebut()) . " au " . $formatter->format($reservation->getDateFin()) . "</br>";
+            }    
+        }
+        else
+        {
+            $result .= "Aucune réservation !";
+        }
+        
         return $result;
     }
 }
