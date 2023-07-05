@@ -81,10 +81,10 @@ class Hotel
         $nbChambres = count($this->_chambres);
         $nbChambresReservees = count($this->_reservations);
 
-        $result = "<h1>$this</h1>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
+        $result = "<h1>$this</h1><p>" . $this->_adresse . " " . $this->_cp . " " . $this->_ville . "</br>" .
         "Nombre de Chambres : $nbChambres</br>" .
         "Nombre de Chambres réservées : $nbChambresReservees</br>" .
-        "Nombre de Chambres disponibles : " . ($nbChambres - $nbChambresReservees);
+        "Nombre de Chambres disponibles : " . ($nbChambres - $nbChambresReservees) . "</p>";
 
         return $result;
     }
@@ -95,19 +95,21 @@ class Hotel
         $totalReservations = count($this->_reservations);
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
 
-        $result = "<h1>Réservations de l'hôtel $this</h1>";
+        $result = "<h2>Réservations de l'hôtel $this</h2>";
 
         if ($totalReservations >= 1)
         {
-            $result .= $totalReservations . " RESERVATIONS</br>";
+            $result .= '<div class="bg-green">' . $totalReservations . " RESERVATIONS</div><p>";
             foreach ($this->_reservations as $reservation)
             {
                 $result .= $reservation->getClient() . " - Chambre " . $reservation->getChambre()->getNumero() . " - du " . $formatter->format($reservation->getDateDebut()) . " au " . $formatter->format($reservation->getDateFin()) . "</br>";
             }    
+
+            $result .= "</p>";
         }
         else
         {
-            $result .= "Aucune réservation !";
+            $result .= "<p>Aucune réservation !</p>";
         }
         
         return $result;
@@ -118,26 +120,26 @@ class Hotel
     {
         usort($this->_chambres, array($this, "TriParChambre"));
 
-        $result = "<h1>Statut des chambres de $this</h1>
+        $result = "<h2>Statut des chambres de $this</h2>
         <table>
             <thead>
                 <tr>
-                    <th >Chambre</th>
-                    <th >Prix</th>
-                    <th >Wifi</th>
-                    <th >Etat</th>
+                    <th >CHAMBRE</th>
+                    <th >PRIX</th>
+                    <th >WIFI</th>
+                    <th >ETAT</th>
                 </tr>
             </thead>
         <tbody>";
 
         foreach ($this->_chambres as $chambre)
         {
-            $wifi = $chambre->getWifi() ? "Oui" : "Non";
-            $disponible = $chambre->getDisponible() ? "Disponible" : "Reservée";
+            $wifi = $chambre->getWifi() ? '<img src="wifi-solid.svg" alt="A Wifi icon" height="20px">' : "";
+            $disponible = $chambre->getDisponible() ? '<div class="bg-green-small">Disponible' : '<div class="bg-red-small">Reservée';
 
             $result .= "
             <tr>
-                <td>Chambre " . $chambre->getNumero() . "</td>
+                <td><b>Chambre " . $chambre->getNumero() . "</b></td>
                 <td>" . $chambre->getPrix() . "€</td>
                 <td>$wifi</td>
                 <td>$disponible</td>

@@ -49,11 +49,11 @@ class Client
         $totalReservations = count($this->_reservations);
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
 
-        $result = "<h1>Réservations de $this</h1>";
+        $result = "<h2>Réservations de $this</h2>";
 
         if ($totalReservations >= 1)
         {
-            $result .= $totalReservations . " RESERVATIONS</br>";
+            $result .= '<div class="bg-green">' . $totalReservations . " RESERVATIONS</div><p>";
             $totalPrix = 0;
 
             foreach ($this->_reservations as $reservation)
@@ -61,10 +61,10 @@ class Client
                 $chambre = $reservation->getChambre();
                 $wifi = $chambre->getWifi() ? "Oui" : "Non";
                 $totalPrix += $chambre->getPrix();
-                $result .= "Hôtel : " . $reservation->getChambre()->getHotel() . " - Chambre " . $chambre->getNumero() . " ( " . $chambre->getPrix() . "€ - Wifi : " . $wifi . " - du " . $formatter->format($reservation->getDateDebut()) . " au " . $formatter->format($reservation->getDateFin()) . "</br>";
+                $result .= "<b>Hôtel : " . $reservation->getChambre()->getHotel() . "</b> - Chambre " . $chambre->getNumero() . " ( " . $chambre->getPrix() . "€ - Wifi : " . $wifi . " - du " . $formatter->format($reservation->getDateDebut()) . " au " . $formatter->format($reservation->getDateFin()) . "</br>";
             }
 
-            $result .= "Total : $totalPrix €</br>";
+            $result .= "Total : $totalPrix €</p>";
         }
         else
         {
