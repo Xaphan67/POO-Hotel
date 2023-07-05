@@ -69,6 +69,11 @@ class Hotel
         $this->_reservations[] = $reservation;
     }
 
+    public function __toString()
+    {
+        return $this->_nom;
+    }
+
     // Affiche les informations sur cet hôtel
     public function afficherInformations()
     {
@@ -82,8 +87,9 @@ class Hotel
     public function afficherReservations()
     {
         $totalReservations = count($this->_reservations);
-        $result = "<h1>Réservations de l'hôtel " . $this->_nom . "</h1>";
         $formatter = new IntlDateFormatter('fr_FR', IntlDateFormatter::SHORT, IntlDateFormatter::NONE);
+
+        $result = "<h1>Réservations de l'hôtel " . $this->_nom . "</h1>";
 
         if ($totalReservations >= 1)
         {

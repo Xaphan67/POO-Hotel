@@ -15,6 +15,7 @@ class Reservation
         $this->_dateFin = new DateTime($dateFin);
 
         $chambre->getHotel()->enregistrerReservation($this);
+        $client->ajouterReservation($this);
     }
 
     public function getClient()
